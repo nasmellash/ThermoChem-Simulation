@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ThermoChem Simulation</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<h2>ThermoChem: Heating & Cooling Simulation</h2>
+
+<!-- ========================== -->
+<!--      SIMULATION CONTROLS   -->
+<!-- ========================== -->
+<div id="simulationSection">
+
+  <div id="controls">
+    <label>Material:
+      <select id="materialSelect">
+        <option value="aluminum">Aluminum (0.897 J/g°C)</option>
+        <option value="copper">Copper (0.385 J/g°C)</option>
+        <option value="iron">Iron (0.449 J/g°C)</option>
+        <option value="lead">Lead (0.128 J/g°C)</option>
+        <option value="water">Water (4.18 J/g°C)</option>
+        <option value="unknown">❓ Unknown (random c)</option>
+      </select>
+    </label>
+
+    <label>Mass (g):
+      <input type="number" id="massInput" value="100" min="10" max="500" step="10">
+    </label>
+
+    <button id="heatBtn">🔥 Heat</button>
+    <button id="coolBtn">❄️ Cool</button>
+    <button id="stopBtn">⏸ Stop</button>
+    <button id="resetBtn">🔄 Reset</button>
+  </div>
+
+  <canvas id="scene" width="700" height="420" style="margin-top:20px;"></canvas>
+</div>
+
+<!-- Buttons always visible -->
+<button id="learnBtn">📘 Learn</button>
+<button id="caloBtn">Calorimetry</button>
+<button id="simBtn" style="display:none;">Simulation</button>
+
+<button id="calcToggleBtn" style="margin-top:20px;">▼ Temperature Calculation</button>
+
+<!-- ========================== -->
+<!-- TEMPERATURE CALCULATION    -->
+<!-- ========================== -->
+<div id="calcSection" style="display:none; margin-top:10px;">
+  <h3>Temperature Calculation</h3>
+
+  <div id="calcPanel">
+    <label for="unknownSelect">Unknown:</label>
+    <select id="unknownSelect">
+      <option value="q">Heat (q)</option>
+      <option value="m">Mass (m)</option>
+      <option value="c">Specific Heat (c)</option>
+      <option value="Ti">Initial Temp (Ti)</option>
+      <option value="Tf">Final Temp (Tf)</option>
+    </select>
+
+    <br><br>
+
+    <label>Heat (J):</label>
+    <input id="qInput" type="number" placeholder="Heat (J)">
+
+    <label>Mass (g):</label>
+    <input id="mInput" type="number" placeholder="Mass (g)">
+
+    <label>Specific Heat (J/g·°C):</label>
+    <input id="cInput" type="number" step="0.0001" placeholder="Specific Heat (J/g·°C)">
+
+    <label>Initial Temp (°C):</label>
+    <input id="TiInput" type="number" placeholder="Initial Temp (°C)">
+
+    <label>Final Temp (°C):</label>
+    <input id="TfInput" type="number" placeholder="Final Temp (°C)">
+
+    <br><br>
+
+    <button id="solveBtn">Solve Unknown</button>
+    <button id="applyHeatBtn">Apply Heat</button>
+  </div>
+
+  <p id="qOutput"></p>
+  <p id="finalTempOutput"></p>
+</div>
+
+<!-- ========================== -->
+<!--     CALORIMETRY LAB       -->
+<!-- ========================== -->
+<div id="calorimetryLab" style="display:none; margin-top:20px;">
+
+  <h3>Calorimetry Lab</h3>
+
+  <p id="caloPrompt" style="margin-bottom:10px;">
+    Mix two materials and calculate the final equilibrium temperature.
+  </p>
+
+  <label>Material A:</label>
+  <select id="matA"></select>
+
+  <label>Mass A (g):</label>
+  <input id="massA" type="number" value="50">
+
+  <label>Initial Temp A (°C):</label>
+  <input id="tempA" type="number" value="80">
+
+  <br><br>
+
+  <label>Material B:</label>
+  <select id="matB"></select>
+
+  <label>Mass B (g):</label>
+  <input id="massB" type="number" value="50">
+
+  <label>Initial Temp B (°C):</label>
+  <input id="tempB" type="number" value="20">
+
+  <br><br>
+
+  <button id="runCalorimetry">Run Calorimetry</button>
+  <p id="caloResult"></p>
+
+  <canvas id="caloCanvas" width="700" height="160"
+          style="display:block; margin-top:12px; border:1px solid #ccc;"></canvas>
+
+  <div id="specificHeatTable" style="display:none; margin-top:10px;">
+    <h4>Specific Heat Reference Table</h4>
+    <ul>
+      <li>Aluminum — 0.897 J/g·°C</li>
+      <li>Copper — 0.385 J/g·°C</li>
+      <li>Iron — 0.449 J/g·°C</li>
+      <li>Lead — 0.128 J/g·°C</li>
+      <li>Water — 4.18 J/g·°C</li>
+    </ul>
+  </div>
+
+</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
